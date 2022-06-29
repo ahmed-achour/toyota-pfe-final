@@ -49,13 +49,11 @@ const upload = multer({
   }
 });
 
-app.post('/create_profile/:id' ,[isAuthorized, isDircteur, upload.single('picture')],async(req, res) =>{
+app.post('/' ,[upload.single('photo')],async(req, res) =>{
     try {
         let data = req.body;
         let file = req.file
-        let userID = req.params.id
-        console.log(userID)
-        let clientFind = await Clients.findOne({account:userID })
+        let clientFind = await Clients.findOne({account:data.account })
         let client = new Clients({
             firstname: data.firstname,
             lastname: data.lastname,
@@ -64,7 +62,7 @@ app.post('/create_profile/:id' ,[isAuthorized, isDircteur, upload.single('pictur
             email: data.email,
             total_amount: data.total_amount,
             entretient: data.entretient,
-            account: userID
+            account: data.account
         });
         if (clientFind){
           error = "client already exists!"
@@ -124,7 +122,7 @@ app.patch('/:id',[isAuthorized, isDircteur], async (req, res) => {
   
   })
   
-app.delete('/:id', [isAuthorized, isDircteur],async (req, res) => {
+app.delete('/:id',async (req, res) => {
     try {
       let clientId = req.params.id
   

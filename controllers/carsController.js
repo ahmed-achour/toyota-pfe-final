@@ -103,6 +103,7 @@ app.patch('/:id', [upload.single('photo')], async (req, res) => {
     try {
       let carId = req.params.id
       let data = req.body
+      //nafs5ou taswira 9dima w nhotou jdida
       if (req.file) {
         data.photo = req.file.filename;
         console.log(data.photo)
